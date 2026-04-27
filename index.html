@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>Habil Haji Majid | SYSTEM VIEW v5.1</title>
+    <meta name="description" content="SYSTEM VIEW v5.1 - Habil Haji Majid's interactive dashboard interface. Monitor academic metrics, track progress, and explore portfolio.">
+    <meta name="keywords" content="Habil Haji Majid, SYSTEM VIEW, dashboard, student, portfolio, academic, projects, skills">
+    <meta name="author" content="Habil Haji Majid">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://habilmajid7-byte.github.io/habil-website/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://habilmajid7-byte.github.io/habil-website/">
+    <meta property="og:title" content="Habil Haji Majid | SYSTEM VIEW v5.1">
+    <meta property="og:description" content="Interactive dashboard interface with real-time system metrics and portfolio.">
+    <meta property="og:image" content="https://habilmajid7-byte.github.io/habil-website/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Background Orbs -->
+    <div class="grid-orb orb-cyan"></div>
+    <div class="grid-orb orb-purple"></div>
+    <div class="grid-orb orb-pink"></div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="boot-screen">
+            <div class="boot-header">
+                <div class="boot-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <div class="boot-title">
+                    <h2>SYSTEM VIEW</h2>
+                    <div class="boot-version">v5.1.0 BUILD 2026</div>
+                </div>
+            </div>
+            <div class="boot-log">
+                <div class="log-line info">[SYSTEM] Initializing core modules...</div>
+                <div class="log-line">[OK] Loading kernel...</div>
+                <div class="log-line success">[OK] Kernel loaded</div>
+                <div class="log-line">[OK] Mounting filesystem...</div>
+                <div class="log-line success">[OK] System ready</div>
+            </div>
+            <div class="boot-progress">
+                <div class="progress-bar" id="bootProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-cube"></i>
+            </div>
+            <span class="sidebar-title">SYSTEM VIEW</span>
+        </div>
+        <div class="sidebar-nav">
+            <a href="#home" class="nav-item active" data-section="home">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Dashboard</span>
+            </a>
+            <a href="#about" class="nav-item" data-section="about">
+                <i class="fas fa-user nav-icon"></i>
+                <span class="nav-label">Profile</span>
+            </a>
+            <a href="#projects" class="nav-item" data-section="projects">
+                <i class="fas fa-folder nav-icon"></i>
+                <span class="nav-label">Projects</span>
+            </a>
+            <a href="#skills" class="nav-item" data-section="skills">
+                <i class="fas fa-chart-bar nav-icon"></i>
+                <span class="nav-label">Skills</span>
+            </a>
+            <a href="#goals" class="nav-item" data-section="goals">
+                <i class="fas fa-bullseye nav-icon"></i>
+                <span class="nav-label">Objectives</span>
+            </a>
+            <a href="#contact" class="nav-item" data-section="contact">
+                <i class="fas fa-envelope nav-icon"></i>
+                <span class="nav-label">Contact</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <div class="system-status">
+                <div class="status-dot"></div>
+                <span class="status-text">ONLINE</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <div class="system-time" id="systemTime">00:00:00</div>
+                <div class="system-breadcrumb">
+                    <span id="currentSection">HOME</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span id="subSection">DASHBOARD</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="metric-indicator">
+                    <div class="metric-dot cyan"></div>
+                    <span class="metric-value" id="cpuMetric">12%</span>
+                </div>
+                <div class="metric-indicator">
+                    <div class="metric-dot purple"></div>
+                    <span class="metric-value" id="memMetric">2.4GB</span>
+                </div>
+                <div class="metric-indicator">
+                    <div class="metric-dot green"></div>
+                    <span class="metric-value" id="netMetric">45MB/s</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Hero Dashboard Section -->
+            <section class="hero-dashboard" id="home">
+                <div class="hero-main">
+                    <div class="hero-status-grid">
+                        <div class="status-card">
+                            <div class="status-label">System Status</div>
+                            <div class="status-value">
+                                <span class="value-text">OPERATIONAL</span>
+                            </div>
+                            <div class="status-change up">
+                                <i class="fas fa-arrow-up"></i> 100%
+                            </div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-label">Uptime</div>
+                            <div class="status-value">
+                                <span class="value-text" id="uptime">00:00:00</span>
+                            </div>
+                            <div class="status-change up">
+                                <i class="fas fa-check-circle"></i> Stable
+                            </div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-label">Active Tasks</div>
+                            <div class="status-value">
+                                <span class="value-text">12</span>
+                                <span class="unit">pending</span>
+                            </div>
+                            <div class="status-change up">
+                                <i class="fas fa-plus"></i> 3 new
+                            </div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-label">Response Rate</div>
+                            <div class="status-value">
+                                <span class="value-text">98.7</span>
+                                <span class="unit">%</span>
+                            </div>
+                            <div class="status-change down">
+                                <i class="fas fa-minus"></i> 0.2%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-title-section">
+                        <div class="hero-subtitle">USER PROFILE LOADED</div>
+                        <h1 class="hero-title">
+                            <span class="typing-text" id="typingText"></span>
+                        </h1>
+                        <p class="hero-description">
+                            Academic performance monitoring active. Track real-time progress across
+                            Mathematics, Programming, Languages, and Communication skills.
+                            System ready for collaboration and project deployment.
+                        </p>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-widget">
+                            <div class="stat-value">5+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat-widget">
+                            <div class="stat-value">A+</div>
+                            <div class="stat-label">Grades</div>
+                        </div>
+                        <div class="stat-widget">
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Dedication</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-sidebar">
+                    <div class="system-panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i class="fas fa-activity panel-icon"></i>
+                                SYSTEM ACTIVITY
+                            </div>
+                            <span class="panel-badge">LIVE</span>
+                        </div>
+                        <div class="activity-feed" id="activityFeed">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="system-panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i class="fas fa-microchip panel-icon"></i>
+                                RESOURCE USAGE
+                            </div>
+                        </div>
+                        <div class="resource-bars">
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-name">CPU Core</span>
+                                    <span class="resource-value" id="cpuBarValue">45%</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill cyan" id="cpuBar" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-name">Memory</span>
+                                    <span class="resource-value" id="memBarValue">62%</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill purple" id="memBar" style="width: 62%"></div>
+                                </div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-name">Network</span>
+                                    <span class="resource-value" id="netBarValue">28%</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill pink" id="netBar" style="width: 28%"></div>
+                                </div>
+                            </div>
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-name">Storage</span>
+                                    <span class="resource-value" id="stoBarValue">84%</span>
+                                </div>
+                                <div class="bar-container">
+                                    <div class="bar-fill green" id="stoBar" style="width: 84%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="section-container" id="about">
+                <div class="section-header">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">USER DATABASE</h2>
+                </div>
+                <div class="section-grid">
+                    <div class="dashboard-card about-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="card-title">Academic Excellence</h3>
+                        </div>
+                        <div class="card-content">
+                            Consistently achieving top grades with A+ performance across all
+                            mathematics and science disciplines. Maintains a perfect attendance
+                            record and actively participates in academic competitions.
+                        </div>
+                    </div>
+                    <div class="dashboard-card about-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 class="card-title">Innovation</h3>
+                        </div>
+                        <div class="card-content">
+                            Creative problem-solving approach. Developing unique solutions
+                            to complex technical challenges. Passionate about emerging
+                            technologies and their real-world applications.
+                        </div>
+                    </div>
+                    <div class="dashboard-card about-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-target"></i>
+                            </div>
+                            <h3 class="card-title">Focus</h3>
+                        </div>
+                        <div class="card-content">
+                            Unwavering dedication to goals. Implements efficient time
+                            management strategies. Balances academic excellence with
+                            personal development and community service.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="section-container" id="projects">
+                <div class="section-header">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">PROJECT DATABASE</h2>
+                </div>
+                <div class="section-grid">
+                    <div class="project-card">
+                        <div class="project-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=400&fit=crop" alt="Math Notes" class="project-image">
+                            <div class="project-overlay">
+                                <a href="https://0473aa7733.cbaul-cdnwnd.com/56df75c58f19b6772e9fe87c73357754/200000036-c8fb2c8fb3/Sequences%20and%20Series%20Notes.pdf?ph=0473aa7733" target="_blank" class="project-action">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-title">Sequences & Series Notes</h3>
+                            <p class="project-desc">Comprehensive study notes covering arithmetic & geometric sequences with detailed proofs and examples.</p>
+                            <div class="project-tags">
+                                <span class="tag">Mathematics</span>
+                                <span class="tag">Education</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=400&fit=crop" alt="Portfolio" class="project-image">
+                            <div class="project-overlay">
+                                <a href="https://habilmajid7-byte.github.io/nexgen-website/" target="_blank" class="project-action">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-title">Personal Portfolio</h3>
+                            <p class="project-desc">Modern responsive portfolio with glassmorphism design and interactive animations.</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop" alt="Academic" class="project-image">
+                            <div class="project-overlay">
+                                <a href="#" class="project-action">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-title">Academic Dashboard</h3>
+                            <p class="project-desc">Comprehensive academic tracking and analytics system for student performance monitoring.</p>
+                            <div class="project-tags">
+                                <span class="tag">Analytics</span>
+                                <span class="tag">Dashboard</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="section-container" id="skills">
+                <div class="section-header">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">SKILL MATRIX</h2>
+                </div>
+                <div class="section-grid">
+                    <div class="dashboard-card skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h3 class="skill-name">Mathematics</h3>
+                        </div>
+                        <div class="skill-desc">
+                            Advanced problem-solving and analytical thinking with focus on
+                            calculus, algebra, and statistical analysis.
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" data-level="95"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3 class="skill-name">Programming</h3>
+                        </div>
+                        <div class="skill-desc">
+                            HTML, CSS, JavaScript fundamentals with growing expertise in
+                            web development and UI/UX design principles.
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" data-level="85"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h3 class="skill-name">Languages</h3>
+                        </div>
+                        <div class="skill-desc">
+                            Trilingual proficiency in English, Somali, and Arabic with
+                            strong communication and writing abilities.
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" data-level="90"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h3 class="skill-name">Writing</h3>
+                        </div>
+                        <div class="skill-desc">
+                            Academic and creative writing skills with ability to produce
+                            high-quality documentation and reports.
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" data-level="88"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="skill-name">Communication</h3>
+                        </div>
+                        <div class="skill-desc">
+                            Effective presentation and teamwork abilities with experience
+                            in group projects and public speaking.
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" data-level="92"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3 class="skill-name">Time Management</h3>
+                        </div>
+                        <div class="skill-desc">
+                            Efficient task prioritization and planning with proven ability
+                            to meet deadlines and manage multiple responsibilities.
+                        </div>
+                        <div class="skill-progress-bar">
+                            <div class="skill-progress-fill" data-level="90"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Goals Section -->
+            <section class="section-container" id="goals">
+                <div class="section-header">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">MISSION OBJECTIVES</h2>
+                </div>
+                <div class="goals-grid">
+                    <div class="goal-card">
+                        <div class="goal-number">01</div>
+                        <div class="goal-content">
+                            <h3>Higher Education</h3>
+                            <p>Gain admission to a prestigious university to pursue advanced studies in my field of interest</p>
+                        </div>
+                    </div>
+                    <div class="goal-card">
+                        <div class="goal-number">02</div>
+                        <div class="goal-content">
+                            <h3>Technical Expertise</h3>
+                            <p>Master advanced programming skills and contribute to open-source projects</p>
+                        </div>
+                    </div>
+                    <div class="goal-card">
+                        <div class="goal-number">03</div>
+                        <div class="goal-content">
+                            <h3>Leadership</h3>
+                            <p>Develop leadership skills and mentor other students on their academic journey</p>
+                        </div>
+                    </div>
+                    <div class="goal-card">
+                        <div class="goal-number">04</div>
+                        <div class="goal-content">
+                            <h3>Global Impact</h3>
+                            <p>Apply knowledge to solve real-world problems and make a positive impact globally</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="section-container" id="contact">
+                <div class="section-header">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">COMMUNICATION CHANNEL</h2>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Establish Connection</h3>
+                        <p>Open for collaborations, inquiries, and professional opportunities.</p>
+                        <div class="contact-list">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <span>habilmajid7@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <span>Tanzania</span>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/habilmajid7-byte" class="social-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.instagram.com/mr_a.l.p.h.a_09/" class="social-link" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <form class="contact-form" id="contactForm" action="https://formspree.io/f/mojpadlv" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="Enter name..." required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control" placeholder="Enter email..." required>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <textarea name="message" class="form-control" placeholder="Type your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            TRANSMIT MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="system-footer">
+            <div class="footer-left">
+                <div class="footer-brand">
+                    <div class="footer-system"></div>
+                    <span>SYSTEM VIEW v5.1</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#home" class="footer-link">Dashboard</a>
+                    <a href="#about" class="footer-link">Profile</a>
+                    <a href="#projects" class="footer-link">Projects</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+            <div class="footer-right">
+                &copy; 2026 Habil Haji Majid. All systems operational.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-terminal" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
